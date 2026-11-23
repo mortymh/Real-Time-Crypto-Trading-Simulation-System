@@ -2,14 +2,14 @@
 
 # 📈 Real-Time Crypto Trading Simulation System
 
-### Automated Signal-Driven Trading Simulator & Multi-Module Execution Terminal
+### Modular Signal-Driven Trading Simulator & Execution-Ready Terminal
 
-**An independently engineered Python trading simulation system that ingests real-time signals from KuCoin and simulates order execution using live Nobitex Ask/Bid prices, trading fees, risk rules, and AI-assisted market analysis.**
+**An independently engineered Python trading platform that ingests real-time market signals, simulates order execution with live Ask/Bid pricing and fee modeling, and features a decoupled architecture ready for live exchange integration.**
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![KuCoin](https://img.shields.io/badge/Signals-KuCoin-23AF91?style=for-the-badge)](#core-capabilities)
-[![Nobitex](https://img.shields.io/badge/Execution_Sim-Nobitex-6C5CE7?style=for-the-badge)](#core-capabilities)
-[![AI Agents](https://img.shields.io/badge/AI-Advisor_&_Router-7B61FF?style=for-the-badge)](#core-capabilities)
+[![Architecture](https://img.shields.io/badge/Architecture-Modular_&_Extensible-23AF91?style=for-the-badge)](#system-architecture)
+[![Execution](https://img.shields.io/badge/Execution-Sim_&_Live_Ready-6C5CE7?style=for-the-badge)](#core-capabilities)
+[![AI Advisor](https://img.shields.io/badge/AI-Market_&_Position_Advisor-7B61FF?style=for-the-badge)](#core-capabilities)
 
 </div>
 
@@ -17,11 +17,11 @@
 
 ## 📌 About the Project
 
-**Real-Time Crypto Trading Simulation System** is an independently built trading simulation and monitoring platform.
+**Real-Time Crypto Trading Simulation System** is a full-featured desktop trading terminal and simulation engine built in Python.
 
-It listens to market data and generates signals from **KuCoin**, simulates buy/sell trades using live **Nobitex Ask/Bid prices**, deducts **buy/sell fees**, applies spread and market-quality filters, and provides pre-session configuration along with an AI market advisor.
+Designed around a decoupled data, strategy, and execution architecture, the platform processes real-time market signals, enforces configurable risk and market-regime rules, and simulates realistic fills using live Ask/Bid spreads and fee structures—while keeping the execution layer modular enough to plug directly into live exchange APIs.
 
-> **Disclaimer:** Built strictly for simulation, strategy analysis, and portfolio showcase purposes. Not financial advice and does not guarantee trading results.
+> **Disclaimer:** This repository presents a visual and architectural overview for portfolio and technical showcase purposes. It does not constitute financial advice or guarantee trading performance.
 
 ---
 
@@ -30,34 +30,35 @@ It listens to market data and generates signals from **KuCoin**, simulates buy/s
 ### ⚙️ Pre-Session Command & Configuration Center
 ![Pre-Session Configuration](01-pre-trade-config.png)
 
-### 📊 Trading Terminal & Live Positions
+### 📊 Enterprise Trading Terminal & Live Monitoring
 ![Trading Terminal](02-trading-terminal.png)
 
-### 📈 Strategy Evaluation
-![Strategy Evaluation](03-strategy-evaluation.png)
-
-### 🤖 AI Advisor & Market Chat
-![AI Advisor Chat](04-advisor-chat.png)
+### 🤖 AI Market Advisor & Trade Insights
+![AI Advisor and Details](03-advisor-and-details.png)
 
 ---
 
 ## 🧩 Core Capabilities
 
-- **Pre-Session Configuration Center:** Configure total budget, order size, buy/sell fee percentage, risk/exit rules, signal strategies, and market regimes before starting a session.
-- **Configurable Signal Strategies:** Support for multiple signal-generation strategies with side-by-side strategy evaluation.
-- **Real-Time Simulation Engine:** Uses live KuCoin signals and simulates fills against real Nobitex Ask/Bid prices with fee deduction and net P&L tracking.
-- **Risk & Live Terminal Controls:** Tracks open/closed positions, win rate, realized/unrealized P&L, quick trading toggle, and emergency position liquidation.
-- **AI Advisor & Market Chat:** Interactive analytical assistant with multi-provider LLM routing, market context, and trade/position insights.
+- **Pre-Session Configuration Center:** Full control over capital allocation, per-order sizing, trading fee modeling, risk/exit rules, strategy selection, and market regime settings prior to starting a session.
+- **Pluggable Strategy & Regime Layer:** Supports multiple configurable signal-generation strategies alongside market-quality, spread, and regime filtering—without exposing proprietary strategy internals.
+- **Realistic Execution Simulation:** Evaluates live Ask/Bid pricing, entry/exit slippage sensitivity, fee deductions, and real-time open/closed P&L tracking.
+- **Live Exchange-Ready Architecture:** Built with isolated exchange adapter and order-routing interfaces so live exchange order execution can be enabled seamlessly with minimal changes to core trading logic.
+- **Real-Time Terminal & Risk Controls:** Multi-session global clocks, live network/feed telemetry, active and closed position ledgers, strategy performance evaluation, trading kill-switch, and emergency position exit controls.
+- **AI Advisor & Market Assistant:** Integrated analytical assistant providing context-aware market summaries, position diagnostics, and multi-provider LLM routing.
 
 ---
 
-## 🏗️ System Flow
+## 🏗️ System Architecture
+
+The system separates market signal ingestion, decision filtering, and execution adapters so simulation and live exchange connectors share the same core pipeline:
 
 ```mermaid
 flowchart LR
-    A[KuCoin Market Signals] --> B[Strategies & Regime/Spread Filters]
-    B --> C[Simulation Engine]
-    D[Nobitex Live Ask/Bid + Fees] --> C
-    C --> E[Positions, Logs & Reports]
-    C --> F[Trading Terminal UI]
-    E --> G[AI Advisor Chat]
+    A[Market Data & Signal Feeds] --> B[Configurable Strategy & Regime Engine]
+    B --> C[Risk, Spread & Quality Filters]
+    C --> D[Execution Adapter Interface]
+    D --> E[Simulation Engine: Live Ask/Bid + Fees]
+    D -.-> F[Live Exchange API Connector]
+    E --> G[Trading Terminal, Logs & Telemetry]
+    G --> H[AI Advisor & Market Chat]
